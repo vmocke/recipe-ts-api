@@ -3,19 +3,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Route, Redirect, withRouter } from 'react-router-dom';
 import * as actionsAuth from './store/actions/actionsAuth';
 import * as actionsLikesItems from './store/actions/actionsLikesItems';
-import Auth from './containers/Auth/Auth';
 import { fire } from './axios-export';
 import withErrorHandler from './hoc/withErrorHandler/withErrorHandler';
 import { AppState } from '.';
-import MainPage from './containers/MainPage/MainPage';
-import Logout from './containers/Auth/Logout/Logout';
 
-/*const MainPage = React.lazy(() => {
-    return import('./containers/MainPage/MainPage');
-});
-const Logout = React.lazy(() => {
-    return import('./containers/Auth/Logout/Logout');
-});*/
+const MainPage = React.lazy(() => import('./containers/MainPage/MainPage'));
+const Logout = React.lazy(() => import('./containers/Auth/Logout/Logout'));
+const Auth = React.lazy(() => import('./containers/Auth/Auth'));
 
 const App = () => {
     const isAuthenticated_ = useSelector((state: AppState) => state.reducer_Auth.token !== null);
@@ -38,7 +32,7 @@ const App = () => {
 
     let routes = (
         <React.Fragment>
-            <Route path="/login" component={Auth} />
+            <Route path="/login" render={(props: any) => <Auth {...props} />} />
             <Redirect to="/login" />
         </React.Fragment>
     );
@@ -46,9 +40,9 @@ const App = () => {
     if (isAuthenticated_) {
         routes = (
             <React.Fragment>
-                <Route path="/home" component={MainPage} />
-                <Route path="/logout" component={Logout} />
-                <Route path="/login" component={Auth} />
+                <Route path="/home" render={(props: any) => <MainPage {...props} />} />
+                <Route path="/logout" render={(props: any) => <Logout {...props} />} />
+                <Route path="/login" render={(props: any) => <Auth {...props} />} />
                 <Redirect to="/home" />
             </React.Fragment>
         );

@@ -122,19 +122,19 @@ const onLogoutClearReducers_ = (state: stateTS) => {
 
 const reducer = (state = initialState, action: any): stateTS => {
     switch (action.type) {
-        case actionTypes.FETCH_RECIPE_DATA_START:
+        case actionTypes.FETCH_RECIPE_DATA_SAGA:
             return getRecipeStart_(state);
         case actionTypes.FETCH_RECIPE_DATA_SUCCESS:
             return getRecipe_(state, action);
         case actionTypes.FETCH_RECIPE_DATA_FAIL:
             return getRecipeFail_(state, action);
 
-        case actionTypes.GET_CHOSEN_RECIPE_START:
+        case actionTypes.GET_CHOSEN_RECIPE_SAGA:
             return onItemPanelClickStart_(state);
         case actionTypes.GET_CHOSEN_RECIPE_SUCCESS:
             return onItemPanelClick_(state, action);
 
-        case actionTypes.MOVE_ITEM_ING_TO_SHOP_LIST_START:
+        case actionTypes.MOVE_ITEM_ING_TO_SHOP_LIST_SAGA:
             return onShopingListButtonStart_(state);
         case actionTypes.MOVE_ITEM_ING_TO_SHOP_LIST_SUCCESS:
             return onShopingListButton_(state, action);
@@ -142,7 +142,7 @@ const reducer = (state = initialState, action: any): stateTS => {
         case actionTypes.DELETE_SHOPPING_ING_SUCCESS:
             return onShopingIngDelete_(state, action);
 
-        case actionTypes.OLD_ING_LIST_SHOW_START:
+        case actionTypes.OLD_ING_LIST_SHOW_SAGA:
             return onAfterAllIngDeletedStart_(state);
         case actionTypes.OLD_ING_LIST_SHOW_SUCCESS:
             return onAfterAllIngDeleted_(state, action);
@@ -157,7 +157,7 @@ const reducer = (state = initialState, action: any): stateTS => {
         case actionTypes.AUTH_LOGOUT_CLEAR:
             return onLogoutClearReducers_(state);
         // from actionsLikesItems
-        case actionTypes.FETCH_LIKES_ITEMS_FROM_SERVER_START:
+        case actionTypes.FETCH_LIKES_ITEMS_FROM_SERVER_SAGA:
             return updateObject(state, { spinner: true });
         case actionTypes.FETCH_LIKES_ITEMS_FROM_SERVER_SUCCESS:
             return updateObject(state, { likesRecipes: action.likesItemsList, spinner: false });
